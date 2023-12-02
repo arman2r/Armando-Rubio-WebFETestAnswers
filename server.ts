@@ -6,6 +6,7 @@ import * as express from 'express';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { AppServerModule } from './src/main.server';
+import { environment } from 'src/environments/environment.development';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -55,5 +56,7 @@ const moduleFilename = mainModule && mainModule.filename || '';
 if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
   run();
 }
+
+const browserBaseUrl = environment.production ? 'https://arman2r.github.io/Armando-Rubio-WebFETestAnswers' : '/';
 
 export * from './src/main.server';
