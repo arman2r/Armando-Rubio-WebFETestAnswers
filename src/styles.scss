@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #e9e9e9;
+}
+
+input,
+select,
+textarea {
+    border-radius: 0px !important;
+}
+
+.primary-color {
+    background-color: #e8920a;
+    color: #5c5c5c;
+    transition: all cubic-bezier(0.445, 0.05, 0.55, 0.95) .3s;
+
+    &:hover {
+        background-color: #36aadd;
+        color: #fff;
+    }
+}
+
+.secondary-color {
+    background-color: #36aadd;
+    color: #fff;
+    transition: all cubic-bezier(0.445, 0.05, 0.55, 0.95) .3s;
+
+    &:hover {
+        background-color: #e8920a;
+        color: #5c5c5c;
+    }
+}
+
+.text-secondary {
+    color: #36aadd !important;
+}
+
+.text-primary {
+    color: #e8920a !important;
+}
+
+.text-medium {
+    color: #5c5c5c !important;
+}
+
+.container {
+    @media(max-width:576px) {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+}
+
+.card-quote{
+    @media(max-width: 399px){
+        .input-field{
+            label{
+                margin-left: .5rem !important;
+            }
+        }
+    }
+}

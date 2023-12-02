@@ -1,0 +1,195 @@
+<div class="content-quote d-flex w-100 flex-column justify-content-center">
+  <div class="cinta w-100 position-absolute"></div>
+  <div class="container">
+    <div class="d-flex flex-wrap w-100">
+      <div class="col-12 col-lg-5 offset-lg-1">
+        <div class="card text-center w-100 shadow rounded-0 card-quote">
+          <div class="card-header bg-white border-0 py-4">
+            <h2 class="card-title mb-0 fw-normal text-secondary">
+              Cotiza tu Seguro Automotriz
+            </h2>
+            <h4 class="m-0">
+              <sub class="top-0 text-body-tertiary fs-5"
+                >¡Resultado instantaneos!</sub
+              >
+            </h4>
+          </div>
+          <div class="divider d-flex d-sm-none"></div>
+          <div class="card-body">
+            <form
+              class="d-flex flex-wrap pb-4 pt-2 px-md-3 px-lg-4"
+              [formGroup]="quoteForm"
+              (ngSubmit)="onSubmit()"
+            >
+              <div
+                class="input-field col-12 col-lg-6 d-flex flex-wrap p-sm-2 align-items-center"
+                [ngClass]="{ 'form-floating': this.innerWidth <= 575 }"
+              >
+                <label
+                  class="text-medium mx-4 lh-1 mx-sm-0 pt-lg-0 mt-1 mt-lg-0 px-sm-0 mb-lg-1 col-12 col-sm-3 col-lg-12 text-start"
+                  for="car-brand"
+                  [ngClass]="{ 'd-none-xs': brandCar.value !== undefined ? brandCar.value : '' }"
+                  >Marca del auto</label
+                >
+                <div class="col-12 col-sm-9 col-lg-12">
+                  <select
+                    type="select"
+                    #brandCar
+                    class="form-select form-select-lg"
+                    id="car-brand"
+                    name="carBrand"
+                    formControlName="carBrand"
+                    (change)="selectedProperty(brandCar.value)"
+                    [ngClass]="{
+                      'is-invalid': submitted && f['carBrand'].errors
+                    }"
+                  >
+                    <option *ngFor="let brand of brands" [value]="brand.id">
+                      {{ brand.brand }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="submitted && f['carBrand'].errors"
+                    class="invalid-feedback text-start"
+                  >
+                    <div *ngIf="f['carBrand'].errors['required']">
+                      Este campo es requerido
+                    </div>
+                  </div>
+                </div>
+              </div> 
+              <div
+                class="input-field col-8 col-sm-12 col-lg-6 d-flex align-items-center flex-wrap p-sm-2 ps-sm-2"
+                [ngClass]="{ 'form-floating': this.innerWidth <= 575 }"
+              >
+                <label
+                  class="text-medium mx-4 mx-sm-0 lh-1 pt-lg-0 mt-lg-0 px-sm-0 mb-lg-1 col-12 col-sm-3 col-lg-12 text-start"
+                  for="car-model"
+                  [ngClass]="{ 'd-none-xs': branModel.value !== undefined ? branModel.value : '' }"
+                  >Modelo del auto</label
+                >
+                <div class="col-12 col-sm-9 col-lg-12">
+                  <select
+                    type="select"
+                    class="form-select form-select-lg"
+                    id="car-model"
+                    name="carModel"
+                    formControlName="carModel"
+                    #branModel
+                    [ngClass]="{
+                      'is-invalid': submitted && f['carBrand'].errors
+                    }"
+                    (change)="branModel.value ? this.quoteForm.get('carYear')?.enable() : this.quoteForm.get('carYear')?.disable()"
+                  >
+                    <option *ngFor="let model of models" [value]="model.id">
+                      {{ model.model }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="submitted && f['carModel'].errors"
+                    class="invalid-feedback text-start"
+                  >
+                    <div *ngIf="f['carModel'].errors['required']">
+                      Este campo es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="input-field col-4 col-sm-12 col-lg-4 d-flex align-items-center flex-wrap p-sm-2 pe-sm-2"
+                [ngClass]="{ 'form-floating': this.innerWidth <= 575 }"
+              >
+                <label
+                  class="text-medium mx-4 mx-sm-0 pt-2 mt-1 pt-lg-0 mt-lg-0 px-sm-0 mb-lg-1 col-12 col-sm-3 col-lg-12 text-start"
+                  for="year"
+                  [ngClass]="{ 'd-none-xs': year.value !== undefined ? year.value : '' }"
+                  >Año</label
+                >
+                <div class="col-12 col-sm-4 col-lg-12">
+                  <select
+                    type="select"
+                    class="form-select form-select-lg"
+                    id="year"
+                    name="carYear"
+                    formControlName="carYear"
+                    #year
+                    [ngClass]="{
+                        'is-invalid': submitted && f['carYear'].errors
+                      }"
+                  >
+                    <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                  </select>
+                  <div
+                    *ngIf="submitted && f['carYear'].errors"
+                    class="invalid-feedback text-start"
+                  >
+                    <div *ngIf="f['carYear'].errors['required']">
+                      Este campo es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="input-field col-12 col-lg-8 d-flex align-items-center flex-wrap p-sm-2"
+                [ngClass]="{ 'form-floating': this.innerWidth <= 575 }"
+              >
+                <label
+                  class="text-medium mx-4 mx-sm-0 pt-2 pt-lg-0 mt-1 mt-lg-0 px-sm-0 mb-lg-1 col-12 col-sm-3 col-lg-12 text-start"
+                  for="email"
+                  [ngClass]="{ 'd-none-xs': email.value }"
+                  >Email</label
+                >
+                <div class="col-12 col-sm-9 col-lg-12">
+                  <input
+                    id="email"
+                    name="userEmail"
+                    type="email"
+                    class="form-control email-field"
+                    formControlName="email"
+                    #email
+                    autocomplete="off"
+                    [ngClass]="{
+                        'is-invalid': submitted && f['email'].errors
+                      }"
+                  />
+                  <div
+                    *ngIf="submitted && f['email'].errors"
+                    class="invalid-feedback text-start"
+                  >
+                    <div *ngIf="f['email'].errors['required']">
+                      Este campo es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="w-100 pt-2 mt-2">
+                <button
+                  href="#"
+                  class="btn secondary-color w-100 p-3 p-lg-2 fs-4 fw-semibold rounded-1 my-4 in-shadow"
+                >
+                  Cotizar
+                </button>
+
+                <button
+                  href="#"
+                  class="btn bg-lg-white text-secondary w-100 p-3 p-lg-2 fw-semibold rounded-1"
+                  (click)="onReset()"
+                >
+                  Recuperar cotización
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div
+        class="d-flex align-items-center col-12 col-lg-4 offset-lg-1 lh-1 pe-3 text-medium"
+      >
+        <article class="fs-3 fw-semibold d-none d-lg-flex">
+          El único que toma un riesgo con el seguro automotriz es aquel que no
+          lo toma.
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
